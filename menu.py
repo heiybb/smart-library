@@ -1,24 +1,31 @@
+"""
+Reception Pi Console Menu
+"""
 import json
 import re
 import socket
+from os import system, name
 
 import socket_utils
 from database_utils import DatabaseUtils
+from face_capture import FaceDataCapture
+from face_encode import FaceDataEncode
+from face_recognise import FaceRecognise
 from pwd_encrypt import encrypt as flower_pass
 
 with open("config.json", "r") as file:
-    data = json.load(file)
+    CONF = json.load(file)
 
 # The server's hostname or IP address.
-HOST = data["MasterPi_IP"]
+SOCKET_HOST = CONF["MasterPi_IP"]
 # The port used by the server.
 PORT = 6067
-ADDRESS = (HOST, PORT)
+ADDRESS = (SOCKET_HOST, PORT)
 
 
 class Menu:
     def __init__(self):
-        self.userDB = DatabaseUtils()
+        self.user_db_util = DatabaseUtils()
 
     def main(self):
         self.run_menu()
@@ -39,35 +46,32 @@ class Menu:
             print()
 
             if selection == "1":
+                self.clear()
                 self.login()
             elif selection == "2":
+                self.clear()
                 self.register()
             elif selection == "3":
+                self.clear()
                 print("Goodbye!")
                 break
-            else:
-                print("Invalid input - please try again.")
+            elif selection == "":
+                self.clear()
 
     def login(self):
         """
         Provide text login and face login option
         """
         print("--- Login ---")
-        print("1. Text Login")
+        print("1. Password Login")
         print("2. Face Login")
         selection = input("Select an option: ")
         if selection == "1":
-            self.text_login()
-        if selection == "2":
+            self.clear()
+            self.password_login()
+        elif selection == "2":
+            self.clear()
             self.face_login()
-        else:
-            print("Invalid input - please try again.")
-
-        # TODO add face login function
-        # print("{:<15} {}".format("Person ID", "Name"))
-        # with DatabaseUtils() as db:
-        #     for person in db.getPeople():
-        #         print("{:<15} {}".format(person[0], person[1]))
 
     def register(self):
         """
@@ -75,105 +79,141 @@ class Menu:
         :rtype: object
         """
         print("--- Registration  ---")
-        username = self.register_input("Input your username", 0)
-        if self.userDB.check_is_exist(username):
+        username = self.input_validate("Input your username: ")
+        if self.user_db_util.check_is_exist(username):
             # go back to register process
             self.register()
         else:
-            password = self.register_input("Input your password", 0)
-            first_name = self.register_input("Input your first name", 0)
-            last_name = self.register_input("Input your last name", 0)
-            email_address = self.register_input("Input your email address", 1)
+            password = self.input_validate("Input your password: ")
+            first_name = self.input_validate("Input your first name: ")
+            last_name = self.input_validate("Input your last name: ")
+            email_address = self.email_validate("Input your email address: ")
 
-            if self.userDB.insert_user(username, flower_pass(password), first_name, last_name, email_address):
+            if self.user_db_util.insert_user(username,
+                                             flower_pass(password),
+                                             first_name, last_name,
+                                             email_address):
                 print("{} register successful.".format(username))
             else:
                 print("System error, can't finish the register")
 
-    def register_input(self, prompt_msg, check_type):
-        """
-        Validate the input, @check_type refers to 0,1
-
-        :ivar prompt_msg the prompt message show in the input
-        :ivar check_type 0 refers to the normal input check; 1 refers to the email input check
-        :rtype: str
-        """
-        while True:
-            inline = input(prompt_msg)
-            if check_type == 0:
-                if self.input_check(inline):
-                    return inline
-                else:
-                    print("Invalid input, check it and try again")
-            if check_type == 1:
-                if self.email_check(inline):
-                    return inline
-                else:
-                    print("Your email address is invalid, try again")
-
     @staticmethod
-    def input_check(income_input):
+    def input_validate(prompt_msg):
         """
         Check if the input is valid include the username, password, first name, last name
         Only the letters and numbers and dash and underscore are allowed
         :return True if the income string is valid
-        :rtype bool
+        :rtype str
         """
-        if income_input:
+        while True:
+            income_input = input(prompt_msg)
             if re.match(r'[\w-]*$', income_input):
-                return True
-            else:
-                return False
-        else:
-            return False
+                return income_input
+            print("Invalid input, check it and try again")
 
     @staticmethod
-    def email_check(email_address):
+    def email_validate(prompt_msg):
         """
         Check if the email address is valid
         :return: True if income address is valid
         :rtype: bool
         """
-        if email_address:
+        while True:
+            email_address = input(prompt_msg)
             if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email_address):
-                return True
-            else:
-                return False
-        else:
-            return False
+                return email_address
+            print("Your email address is invalid, try again")
 
-    def text_login(self):
-        username = self.register_input("Input your username", 0)
-        if self.userDB.check_is_exist(username):
-            # TODO SOCKET MSG SEND
-            # TODO LOGIN SUB MENU
+    def password_login(self):
+        """
+        Use traditional username & password to login
+        """
+        print()
+        print("Input your username and password to login")
+        username = self.input_validate("Input your username: ")
+        password = self.input_validate("Input your password: ")
+        print()
+        print("Please wait for validating the password...")
+        print()
 
+        if self.user_db_util.check_password(str(username), str(password)):
             print("Login successful")
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                print("Connecting to {}...".format(ADDRESS))
-                try:
-                    s.connect(ADDRESS)
-                except socket.error:
-                    s.close()
-                    print("Socket connect fail")
-                else:
-                    print("Connection Established")
-                    print("Logging in as {}".format(username))
-                    socket_utils.send_json(s, self.userDB.get_user_detail(username))
+            while True:
+                print("1. Directly Login")
+                print("2. Add face data")
+                print("3. Back to homepage")
 
-                    print("Waiting for Master Pi...")
-                    while True:
-                        income_msg = socket_utils.recv_json(s)
-                        if "logout" in income_msg:
-                            print("Master Pi logged out")
-                            break
+                selection = input("Select an option: ")
+                if selection == "1":
+                    self.clear()
+                    self.send_socket_login(username)
 
+                elif selection == "2":
+                    self.clear()
+                    # pass the username as the user face data folder
+                    FaceDataCapture.capture(username)
+                    FaceDataEncode.encode()
+                    break
+
+                elif selection == "3":
+                    self.clear()
+                    break
         else:
-            print("{} not exist, register first".format(username))
+            print("Username or Password not match, try again")
 
     def face_login(self):
-        return
+        """
+        Use face recognise module to login
+        """
+        print()
+        print("Input your username to match the face data")
+        username = self.input_validate("Input your username: ")
+
+        if FaceRecognise.recognise(username):
+            print("Face login successful")
+            self.send_socket_login(username)
+        else:
+            print("No face data found")
+
+    @staticmethod
+    def clear():
+        """
+        Clear the screen output
+        Compatible for both WIN and *unix
+        """
+        # for windows
+        if name == 'nt':
+            _ = system('cls')
+        # for mac and linux(here, os.name is 'posix')
+        else:
+            _ = system('clear')
+
+    def send_socket_login(self, username):
+        """
+        Use socket to send the username and related details to the Master Pi
+        :param username: Refers to the user details
+        """
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socket_connection:
+            print("Connecting to {}...".format(ADDRESS))
+            try:
+                socket_connection.connect(ADDRESS)
+            except socket.error:
+                socket_connection.close()
+                print("Socket connect fail")
+            else:
+                print("Connection Established")
+                print("Logging in as {}".format(username))
+                socket_utils.send_json(socket_connection,
+                                       self.user_db_util.get_user_detail(username))
+
+                print("Waiting for Master Pi...")
+                while True:
+                    income_msg = socket_utils.recv_json(socket_connection)
+                    if "logout" in income_msg:
+                        print("Master Pi logged out")
+                        break
 
 
 if __name__ == "__main__":
-    Menu().main()
+    MENU = Menu()
+    MENU.main()

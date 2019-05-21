@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-import socket, json, struct
+"""
+Socket utils
+Include the send json data and receive json data
+"""
+import json
+import struct
 
 
 def send_json(socket, object):
@@ -7,7 +12,7 @@ def send_json(socket, object):
     Wrap the data to json format and send to the remote side
     :rtype: object
     :param socket: income socket used to send data
-    :param object:
+    :param object: income object prepare to convert to socket stream
     """
     try:
         json_string = json.dumps(object)
