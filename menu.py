@@ -24,13 +24,14 @@ ADDRESS = (SOCKET_HOST, PORT)
 
 
 class Menu:
+    """
+    Menu Class
+    """
+
     def __init__(self):
         self.user_db_util = DatabaseUtils()
 
     def main(self):
-        self.run_menu()
-
-    def run_menu(self):
         """
         Provide the console menu
         -- Login

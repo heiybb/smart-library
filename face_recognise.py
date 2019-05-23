@@ -18,6 +18,11 @@ from imutils.video import VideoStream
 
 
 class FaceRecognise:
+    """
+    Provide the static recognise method
+    identified by username and matched face
+    """
+
     @staticmethod
     def recognise(username):
         """

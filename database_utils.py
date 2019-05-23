@@ -149,6 +149,7 @@ class DatabaseUtils:
         try:
             self.create_user_table()
             self.insert_user("heiybb", "heiybb", "Bobin", "Yuan", "root@chr.moe")
+            self.insert_user("muggle", "muggle", "Muggle", "Evil", "root@chr.moe")
             self.insert_user("hubert", "hubert", "Hubert", "Law", "hf.heiybb@gmail.com")
             self.insert_user("pied8", "rmit2019", "Emily", "Wilkinson", "terjesa@icloud.com")
             self.insert_user("gay8", "rmit2019", "Asher", "Emerson", "kawasaki@verizon.net")
@@ -171,4 +172,4 @@ class DatabaseUtils:
 
 if __name__ == "__main__":
     DB_UTIL = DatabaseUtils()
-    # DBUtil.init_insert()
+    DB_UTIL.init_insert()

@@ -15,8 +15,8 @@ def encrypt(password):
 
     hmd5 = hmac.new(password, encrypt_key).hexdigest().encode(encoding="utf-8")
 
-    rule = list(hmac.new("csit2019".encode(encoding="utf-8"), hmd5).hexdigest())
-    source = list(hmac.new("rmit1995".encode(encoding="utf-8"), hmd5).hexdigest())
+    rule = list(hmac.new("csit2019australia".encode(encoding="utf-8"), hmd5).hexdigest())
+    source = list(hmac.new("rmit1995melbourne".encode(encoding="utf-8"), hmd5).hexdigest())
 
     for i in range(0, 32):
         if not source[i].isdigit():

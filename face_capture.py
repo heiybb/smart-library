@@ -9,6 +9,10 @@ import cv2
 
 
 class FaceDataCapture:
+    """
+    Provide the interface for face images capture
+    """
+
     @staticmethod
     def capture(username):
         """
@@ -46,7 +50,7 @@ class FaceDataCapture:
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = face_detector.detectMultiScale(gray, 1.3, 5)
 
-            if len(faces) == 0:
+            if not faces:
                 print("No face detected, please try again")
                 continue
 
