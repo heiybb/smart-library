@@ -18,8 +18,13 @@ class BarcodeRecognise:
 
     @staticmethod
     def recognise():
+        """
+        Search the ISBN graph from the camera stream and return if any matched
+        :return: founded ISBN
+        """
         # initialize the video stream and allow the camera sensor to warm up
         print("[INFO] Barcode Searching...")
+        print("[INFO] Please wait for system initialise...")
         video_stream = VideoStream(src=0).start()
         time.sleep(2.0)
         found = set()
@@ -49,7 +54,7 @@ class BarcodeRecognise:
 
             # wait a little before scanning again
             time.sleep(1)
-        # close the output CSV file do a bit of cleanup
+            attempt_count += 1
         print("[INFO] cleaning up...")
 
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Reception Pi Console Menu
 """
@@ -6,12 +7,12 @@ import re
 import socket
 from os import system, name
 
-import socket_utils
-from database_utils import DatabaseUtils
-from face_capture import FaceDataCapture
-from face_encode import FaceDataEncode
-from face_recognise import FaceRecognise
-from pwd_encrypt import encrypt as flower_pass
+import Socket_Utils
+from Database_Utils import DatabaseUtils
+from FaceDataCapture import FaceDataCapture
+from FaceDataEncode import FaceDataEncode
+from FaceRecognise import FaceRecognise
+from PWD_Encrypt import encrypt as flower_pass
 
 with open("config.json", "r") as file:
     CONF = json.load(file)
@@ -154,7 +155,6 @@ class Menu:
                     # pass the username as the user face data folder
                     FaceDataCapture.capture(username)
                     FaceDataEncode.encode()
-                    break
 
                 elif selection == "3":
                     self.clear()
@@ -198,21 +198,26 @@ class Menu:
             print("Connecting to {}...".format(ADDRESS))
             try:
                 socket_connection.connect(ADDRESS)
-            except socket.error:
+            except Exception:
                 socket_connection.close()
                 print("Socket connect fail")
             else:
                 print("Connection Established")
                 print("Logging in as {}".format(username))
-                socket_utils.send_json(socket_connection,
+                Socket_Utils.send_json(socket_connection,
                                        self.user_db_util.get_user_detail(username))
 
                 print("Waiting for Master Pi...")
                 while True:
-                    income_msg = socket_utils.recv_json(socket_connection)
-                    if "logout" in income_msg:
-                        print("Master Pi logged out")
+                    try:
+                        income_msg = Socket_Utils.recv_json(socket_connection)
+                    except Exception:
+                        print("Communication error with receive ")
                         break
+                    else:
+                        if income_msg and "logout" in income_msg:
+                            print("Master Pi logged out")
+                            break
 
 
 if __name__ == "__main__":

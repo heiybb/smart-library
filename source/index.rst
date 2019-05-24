@@ -10,13 +10,7 @@ Welcome to smart-library-reception's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   face_capture
-   face_encode
-   face_recognise
-   menu
-   pwd_encrypt
-   socket_utils
-   database_utils
+   modules
 
 
 

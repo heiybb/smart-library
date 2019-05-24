@@ -1,7 +1,7 @@
-socket\_utils module
+Socket\_Utils module
 ====================
 
-.. automodule:: socket_utils
+.. automodule:: Socket_Utils
     :members:
     :undoc-members:
     :show-inheritance:

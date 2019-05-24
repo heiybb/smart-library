@@ -1,7 +1,7 @@
-face\_capture module
+FaceRecognise module
 ====================
 
-.. automodule:: face_capture
+.. automodule:: FaceRecognise
     :members:
     :undoc-members:
     :show-inheritance:

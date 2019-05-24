@@ -1,7 +1,7 @@
-Database\_Utils module
+isbn\_generator module
 ======================
 
-.. automodule:: Database_Utils
+.. automodule:: isbn_generator
     :members:
     :undoc-members:
     :show-inheritance:

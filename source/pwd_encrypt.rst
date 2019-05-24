@@ -1,7 +1,7 @@
-pwd\_encrypt module
+PWD\_Encrypt module
 ===================
 
-.. automodule:: pwd_encrypt
+.. automodule:: PWD_Encrypt
     :members:
     :undoc-members:
     :show-inheritance:

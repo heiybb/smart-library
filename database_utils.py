@@ -4,7 +4,7 @@ operation including insert, delete, query
 """
 import MySQLdb
 
-import pwd_encrypt as fp
+import PWD_Encrypt as fp
 
 
 class DatabaseUtils:
@@ -61,8 +61,7 @@ class DatabaseUtils:
         self.connection.commit()
 
     def insert_user(self, username, original_pass, first_name, last_name, email):
-        """
-        Insert a new user into the User table
+        """Insert a new user into the User table
         Should include username, password, first name, last name and email address
         :rtype: bool
         :param username: User's username
@@ -166,7 +165,7 @@ class DatabaseUtils:
             self.insert_user("verde8", "rmit2019", "Silas", "Hutchinson", "overbom@live.com")
             self.insert_user("rice8", "rmit2019", "Humairaa", "Davila", "ardagna@hotmail.com")
             self.insert_user("trig8", "rmit2019", "Glenda", "Partridge", "kohlis@optonline.net")
-        except MySQLdb.Error as sqlerror:
+        except Exception as sqlerror:
             print(sqlerror)
 
 

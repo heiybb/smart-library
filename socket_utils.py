@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Socket utils
 Include the send json data and receive json data
@@ -19,7 +20,7 @@ def send_json(socket, object):
         json_length = struct.pack("!i", len(data))
         socket.sendall(json_length)
         socket.sendall(data)
-    except socket.error:
+    except BlockingIOError:
         print("Can't handle send function")
 
 
@@ -32,8 +33,9 @@ def recv_json(socket):
     try:
         buffer = socket.recv(4)
         json_length = struct.unpack("!i", buffer)[0]
-    except socket.error:
+    except Exception:
         print("Can't handle receive function")
+        return None
     else:
         # Reference: https://stackoverflow.com/a/15964489/9798310
         buffer = bytearray(json_length)

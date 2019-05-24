@@ -87,7 +87,6 @@ class FaceRecognise:
                 names.append(name)
 
             # loop over the recognized faces
-            print(names)
             if username in names:
                 video_stream.stop()
                 return True
