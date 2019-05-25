@@ -40,6 +40,7 @@ class DatabaseUtils:
             Title text not null,
             Author text not null,
             PublishedDate date not null,
+            ISBN nvarchar(256) not null,
             constraint PK_Book primary key (BookID))
             """)
             self.connection.commit()
@@ -79,13 +80,11 @@ class DatabaseUtils:
             cursor.execute("select eventid from BookEventId where BookID={}".format(bookid))
             return cursor.fetchall()
 
-    def deleteEventIdr(self, bookid):
+    def deleteEventId(self, bookid):
         with self.connection.cursor() as cursor:
             # Note there is an intentionally placed bug here: != should be =
             cursor.execute("delete from BookEventId where BookID={}".format(bookid))
         self.connection.commit()
-
-
 
     def insertLmsUser(self, username, name):
         with self.connection.cursor() as cursor:
@@ -106,23 +105,23 @@ class DatabaseUtils:
             cursor.execute("delete from LmsUser where LmsUserID != %s", (lmsUserID,))
         self.connection.commit()
 
-    def insertBook(self, title, author, publisheddate):
+    def insertBook(self, title, author, publisheddate, isbn):
         with self.connection.cursor() as cursor:
-            cursor.execute("insert into Book (Title, Author, PublishedDate) "
-                           "values (%s,%s,%s", (title, author, publisheddate,))
+            cursor.execute("insert into Book (Title, Author, PublishedDate, ISBN) "
+                           "values (%s,%s,%s", (title, author, publisheddate,isbn,))
         self.connection.commit()
 
         return cursor.rowcount == 1
 
     def getBook(self):
         with self.connection.cursor() as cursor:
-            cursor.execute("select BookID, Title,Author,PublishedDate from Book")
+            cursor.execute("select BookID, Title,Author,PublishedDate,ISBN from Book")
             return cursor.fetchall()
 
-    def getSpecifyBookID(self,title, author,publish_date):
+    def getSpecifyBookID(self, title, author, publish_date, isbn):
         with self.connection.cursor() as cursor:
             cursor.execute("select BookID from Book where title=%s and author= %s and "
-                           "PublishedDate=%s", (title, author, publish_date,))
+                           "PublishedDate=%s and ISBN=%s", (title, author, publish_date, isbn,))
             return cursor.fetchall()
 
     def deleteBook(self, bookID):
@@ -141,6 +140,13 @@ class DatabaseUtils:
                            status + "," + borrowedDate + "," + returnedDate + ")")
         self.connection.commit()
         return cursor.rowcount == 1
+
+    def updateBookBorrowed(self, lmsUserID, bookID, status):
+        with self.connection.cursor() as cursor:
+            status = "'" + status + "'"
+            cursor.execute("update BookBorrowed SET Status={} where LmsUserID={} and BookID={}".format(status,lmsUserID,bookID))
+        self.connection.commit()
+
 
     def getBookBorrowed(self):
         with self.connection.cursor() as cursor:
