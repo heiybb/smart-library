@@ -1,0 +1,135 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+        <!--<meta charset="UTF-8">-->
+    <!--<title>Title</title>-->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"-->
+          <!--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"-->
+            <!--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">-->
+    <!--</script>-->
+<!--</head>-->
+<!--<body>-->
+
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<ul class="nav nav-pills">-->
+                <!--<li role="presentation"><a href="/">Home</a></li>-->
+                <!--<li role="presentation"class="active"><a href="/login/">Login</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="jumbotron">-->
+                <!--<h3 style="text-align: center">Welcome to Smart Library</h3>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-6 col-md-offset-3">-->
+
+                <!--<h3>Put some pic here</h3>-->
+
+<!--{#                {{ username }}#}-->
+
+                <!--<form class="form-horizontal" action="/" method="post">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="username" class="col-sm-4 control-label">User Name</label>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<input type="text" class="form-control" id="username" name="username"-->
+                                   <!--placeholder="User name" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                        <!--<label for="password" class="col-sm-4 control-label">Password</label>-->
+                        <!--<div class="col-sm-6">-->
+                          <!--<input type="password" class="form-control" id="password" name="password"-->
+                                 <!--placeholder="Password" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                        <!--<div class="col-sm-offset-4 col-sm-10">-->
+                            <!--<button type="submit" class="btn btn-default">Sign in</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+
+
+
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div style="margin-top: 200px">-->
+                <!--<p style="text-align: center">copyright@group7piot</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+<!--</body>-->
+<!--</html>-->
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            <small class="text-muted ml-2">
+                <a href="#">Forgot Password?</a>
+            </small>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Need An Account? <a class="ml-2" href="/register">Sign Up Now</a>
+        </small>
+    </div>
+{% endblock content %}

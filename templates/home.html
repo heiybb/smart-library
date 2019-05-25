@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="margin-bottom: 50px">
+        <h2>Review All Books</h2>
+    </div>
+    <div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publish Date</th>
+                <th>ISBN</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            {%for item in book%}
+            <tr>
+                <form action="/" method="POST">
+                    <td>{{item.BookID}}</td>
+                    <td>
+                        <input type="text" name="Title" class="form-control" value="{{item.Title}}">
+                    </td>
+                    <td>
+                        <input type="text" name="Author" class="form-control" value="{{item.Author}}">
+                    </td>
+                    <td>
+                        <input type="text" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}">
+                    </td>
+                    <td>
+                        {{item.ISBN}}
+                    </td>
+                    <td>
+                        <input type="hidden" class="btn btn-info" value="delete" name="delete">
+                        <input type="hidden" class="btn btn-info" value="{{item.BookID}}" name="Id">
+                        <input type="hidden" class="btn btn-info" value="PUT" name="put">
+                        <button type="submit" class="btn btn-info">Update</button>
+                    </td>
+                </form>
+                <form action="/" method="POST">
+                    <td>
+                        <input type="hidden" class="btn btn-info" value="{{item.BookID}}" name="Id">
+                        <input type="hidden" class="btn btn-info" value="put" name="put">
+                        <input type="hidden" class="btn btn-info" value="DELETE" name="delete">
+                        <button type="submit" class="btn btn-info">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            {%endfor%}
+        </table>
+
+    </div>
+
+{% endblock content %}

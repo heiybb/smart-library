@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <h2>Add A book</h2>
+    </div>
+    <div>
+        <form class="form-horizontal" action="/" method="POST">
+                <div class="form-group">
+                    <label for="Title" class="col-sm-4 control-label">Insert A Book</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="Title" name="Title"
+                               placeholder="Title" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="Author" name="Author"
+                               placeholder="Author" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="PublishedDate" name="PublishedDate"
+                               placeholder="PublishedDate" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="ISBN" name="ISBN"
+                               placeholder="ISBN" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-10">
+                        <input type="hidden" class="btn btn-info" value="put" name="put">
+                        <input type="hidden" class="btn btn-info" value="delete" name="delete">
+                        <button type="submit" class="btn btn-info">Add New Book</button>
+                    </div>
+                </div>
+         </form>
+    </div>
+{% endblock content %}

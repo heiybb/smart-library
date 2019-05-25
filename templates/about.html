@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for ppl in group %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">Group 7</a>
+            </div>
+            <h2><a class="article-title" href="#">{{ ppl.name }}</a></h2>
+            <p class="article-content">{{ ppl.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
