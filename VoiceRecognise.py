@@ -11,6 +11,7 @@ using the google speech-to-text api
 """
 
 import speech_recognition as sr
+import subprocess
 
 
 class VoiceRecognise:
@@ -29,8 +30,6 @@ class VoiceRecognise:
         mic_name = "Microsoft® LifeCam HD-3000: USB Audio (hw:1,0)"
         # Set the device ID of the mic that we specifically want to use to avoid ambiguity
         for i, microphone_name in enumerate(sr.Microphone.list_microphone_names()):
-            print(i)
-            print(microphone_name)
             if microphone_name == mic_name:
                 device_id = i
                 break
@@ -40,7 +39,7 @@ class VoiceRecognise:
         print(device_id)
         with sr.Microphone(device_index=device_id) as source:
             # clear console of errors
-            # subprocess.run("clear")
+            subprocess.run("clear")
 
             # wait for a second to let the recognizer adjust the
             # energy threshold based on the surrounding noise level
@@ -61,9 +60,9 @@ class VoiceRecognise:
             return c_text
         except sr.UnknownValueError:
             print("Google Speech Recognition could not understand audio")
+            return None
         except sr.RequestError as e:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
-        finally:
             return None
 
 

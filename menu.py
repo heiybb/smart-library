@@ -199,13 +199,12 @@ class Menu:
             try:
                 socket_connection.connect(ADDRESS)
             except Exception:
+                print("Can not connect to the Master Server")
                 socket_connection.close()
-                print("Socket connect fail")
             else:
                 print("Connection Established")
                 print("Logging in as {}".format(username))
-                Socket_Utils.send_json(socket_connection,
-                                       self.user_db_util.get_user_detail(username))
+                Socket_Utils.send_json(socket_connection, self.user_db_util.get_user_detail(username))
 
                 print("Waiting for Master Pi...")
                 while True:
