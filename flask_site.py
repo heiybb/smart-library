@@ -27,13 +27,12 @@ group = [
 
 
 # Client webpage.
-@site.route("/", methods=['POST','GET','PUT','DELETE'])
+@site.route("/", methods=['POST', 'GET', 'PUT', 'DELETE'])
 def index():
-    # Use REST API.
-    if session.get('username') == 'xiaoyu' and session.get('password') == '111':
-        userinfo = 'xiaoyu'
-    else:
-        userinfo = None
+    userinfo = isLogin()
+
+    if userinfo is None:
+        return render_template("home.html", userinfo=userinfo)
 
     if request.method == 'POST':
 
@@ -69,7 +68,6 @@ def index():
             flash('The book with ISBN(' + ISBN + ') has been updated successfuly', 'success')
             return render_template("home.html", book=data, userinfo=userinfo)
 
-
         elif method_delete == "DELETE":
             id = request.form['Id']
             requests.delete("http://127.0.0.1:5000/book/" + id)
@@ -80,10 +78,8 @@ def index():
 
         else:
             if len(Title) > 100 or len(Author) > 50:
-                flash('The Title or Author is too long! 1. Modify your input. 2. Contact IT suport.', 'danger')
+                flash('The Title or Author is too long or empty! 1. Modify your input. 2. Contact IT suport.', 'danger')
                 return render_template("add.html")
-
-
 
             data = {
                 "Title": Title,
@@ -103,17 +99,7 @@ def index():
                 flash('The Book has added success!', 'success')
                 return render_template("add.html")
 
-        # response = requests.get("http://127.0.0.1:5000/book")
-        # data = json.loads(response.text)
-        # return render_template("home.html", book=data, userinfo=json.dumps(userinfo))
-
     if request.method == 'GET':
-
-        if session.get('username') == 'xiaoyu' and session.get('password') == '111':
-            userinfo = 'xiaoyu'
-        else:
-            userinfo = None
-
         response = requests.get("http://127.0.0.1:5000/book")
         data = json.loads(response.text)
         return render_template("home.html", book=data, userinfo=userinfo)
@@ -122,16 +108,18 @@ def index():
 @site.route("/add", methods=['POST','GET'])
 def add():
     userinfo = isLogin()
-    if request.method == 'POST':
-        print(session.get('username'))
-        print(session.get('password'))
-
+    if userinfo is None:
+        flash("You haven't login, please login first, then to add book", 'warning')
+        return redirect(url_for('site.login'))
     return render_template("add.html", userinfo=userinfo)
 
 
 @site.route("/report", methods=['POST','GET'])
 def report():
     userinfo = isLogin()
+    if userinfo is None:
+        flash("You haven't login, please login first, then to reivew the Report", 'warning')
+        return redirect(url_for('site.login'))
     response = requests.get("http://127.0.0.1:5000/book")
     data = json.loads(response.text)
     return render_template("report.html", people=data, userinfo=userinfo)
@@ -168,12 +156,13 @@ def logout():
     session.pop('password',None)
     return redirect(url_for('site.login'))
 
-@site.route("/register")
+
+@site.route("/register", methods=['GET','POST'])
 def register():
     userinfo = isLogin()
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash('Account created for {form.username.data}!', 'success')
+        flash('Account created success!', 'success')
         return render_template('login.html', title='Login', form=form, userinfo=userinfo)
     return render_template('register.html', title='Register', form=form, userinfo=userinfo)
 
@@ -183,5 +172,4 @@ def isLogin():
         userinfo = 'xiaoyu'
     else:
         userinfo = None
-
     return userinfo

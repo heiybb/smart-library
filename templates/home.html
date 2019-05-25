@@ -1,61 +1,74 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div style="margin-bottom: 50px">
-        <h2>Review All Books</h2>
-    </div>
-    <div>
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Publish Date</th>
-                <th>ISBN</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-            {%for item in book%}
-            <tr>
-                <!--update form-->
-                <form action="/" method="POST">
-                    <td>{{item.BookID}}</td>
-                    <td>
-                        <input type="text" name="Title" class="form-control" value="{{item.Title}}">
-                    </td>
-                    <td>
-                        <input type="text" name="Author" class="form-control" value="{{item.Author}}">
-                    </td>
-                    <td>
-                        <input type="text" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}">
-                    </td>
-                    <td>
-                        {{item.ISBN}}
-                    </td>
-                    <td>
-                        <input type="hidden" name="ISBN" class="form-control" value="{{item.ISBN}}">
-                        <input type="hidden" class="btn btn-info" value="delete" name="delete">
-                        <input type="hidden" class="btn btn-info" value="{{item.BookID}}" name="Id">
-                        <input type="hidden" class="btn btn-info" value="PUT" name="put">
-                        <button type="submit" class="btn btn-info">Update</button>
-                    </td>
-                </form>
 
-                <!--delete form-->
-                <form action="/" method="POST">
-                    <td>
-                        <input type="hidden" name="ISBN" class="form-control" value="{{item.ISBN}}">
-                        <input type="hidden" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}">
-                        <input type="hidden" name="Author" class="form-control" value="{{item.Author}}">
-                        <input type="hidden" name="Title" class="form-control" value="{{item.Title}}">
-                        <input type="hidden" class="btn btn-info" value="{{item.BookID}}" name="Id">
-                        <input type="hidden" class="btn btn-info" value="put" name="put">
-                        <input type="hidden" class="btn btn-info" value="DELETE" name="delete">
-                        <button type="submit" class="btn btn-info">Delete</button>
-                    </td>
-                </form>
-            </tr>
-            {%endfor%}
-        </table>
-    </div>
+    {% if userinfo %}
+        <div style="margin-bottom: 50px">
+            <h2>Review All Books</h2>
+        </div>
+
+        <div>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publish Date</th>
+                    <th>ISBN</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                {%for item in book%}
+                <tr>
+                    <!--update form-->
+                    <form action="/" method="POST">
+                        <td>{{item.BookID}}</td>
+                        <td>
+                            <input type="text" name="Title" class="form-control" value="{{item.Title}}" required>
+                        </td>
+                        <td>
+                            <input type="text" name="Author" class="form-control" value="{{item.Author}}" required>
+                        </td>
+                        <td>
+                            <input type="text" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}" required>
+                        </td>
+                        <td>
+                            {{item.ISBN}}
+                        </td>
+                        <td>
+                            <input type="hidden" name="ISBN" class="form-control" value="{{item.ISBN}}">
+                            <input type="hidden" class="btn btn-info" value="delete" name="delete">
+                            <input type="hidden" class="btn btn-info" value="{{item.BookID}}" name="Id">
+                            <input type="hidden" class="btn btn-info" value="PUT" name="put">
+                            <button type="submit" class="btn btn-info">Update</button>
+                        </td>
+                    </form>
+
+                    <!--delete form-->
+                    <form action="/" method="POST">
+                        <td>
+                            <input type="hidden" name="ISBN" class="form-control" value="{{item.ISBN}}">
+                            <input type="hidden" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}">
+                            <input type="hidden" name="Author" class="form-control" value="{{item.Author}}">
+                            <input type="hidden" name="Title" class="form-control" value="{{item.Title}}">
+                            <input type="hidden" class="btn btn-info" value="{{item.BookID}}" name="Id">
+                            <input type="hidden" class="btn btn-info" value="put" name="put">
+                            <input type="hidden" class="btn btn-info" value="DELETE" name="delete">
+                            <button type="submit" class="btn btn-info">Delete</button>
+                        </td>
+                    </form>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+    {% else %}
+        <div style="text-align: center;margin-bottom: 30px">
+            <p class="lead" style="font-size: 30px">Welcome to Smart Library</p>
+        </div>
+        <div style="text-align: center">
+            <img src="./static/IOT.png" class="img-responsive center-block" alt="">
+        </div>
+
+
+    {% endif %}
 
 {% endblock content %}
