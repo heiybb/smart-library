@@ -61,6 +61,13 @@ def index():
             PublishedDate = request.form["PublishedDate"]
             ISBN = request.form["ISBN"]
 
+
+            if len(Title)>100 or len(Author)>50:
+                flash('The Title or Author is too long! 1. Modify your input. 2. Contact IT suport.', 'danger')
+                return render_template("add.html")
+
+
+
             data = {
                 "Title": Title,
                 "Author": Author,
@@ -71,6 +78,13 @@ def index():
                 "Content-type": "application/json"
             }
             response = requests.post("http://127.0.0.1:5000/book", data = json.dumps(data), headers = headers)
+            data = json.loads(response.text)
+            if len(data) == 1:
+                flash('The Book has exist! Check ISBN, each book has its unique ISBN', 'danger')
+                return render_template("add.html")
+            else:
+                flash('The Book has added success!', 'success')
+                return render_template("add.html")
 
         response = requests.get("http://127.0.0.1:5000/book")
         data = json.loads(response.text)
@@ -84,9 +98,7 @@ def index():
 
 @site.route("/add", methods=['POST','GET'])
 def add():
-    response = requests.get("http://127.0.0.1:5000/book")
-    data = json.loads(response.text)
-    return render_template("add.html", people=data)
+    return render_template("add.html")
 
 
 @site.route("/report", methods=['POST','GET'])
