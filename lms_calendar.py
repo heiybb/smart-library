@@ -48,7 +48,7 @@ class LmsCalendar:
             start = event["start"].get("dateTime", event["start"].get("date"))
             print(start, event["summary"])
 
-    def insert(self, title,author,publish_date):
+    def insert(self, title,author,publish_date, isbn):
         date = datetime.now()
         return_day = (date + timedelta(days = 7)).strftime("%Y-%m-%d")
         time_start = "{}T10:00:00+10:00".format(return_day)
@@ -56,7 +56,8 @@ class LmsCalendar:
         event = {
             "summary": "Book title: " + title,
             "location": "RMIT Building 10 Library",
-            "description": "Title: " + title + '\n' + "Author: " + author + '\n' + "Publish Date:" + publish_date,
+            "description": "Title: " + title + '\n' + "Author: " + author + '\n' +
+                           "Publish Date:" + publish_date + '\n' + 'ISBN:' + isbn,
             "start": {
                 "dateTime": time_start,
                 "timeZone": "Australia/Melbourne",
