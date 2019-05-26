@@ -77,12 +77,14 @@ class Menu:
 
     def register(self):
         """
-        Sub menu option, accept the register input and check if it satisfy the demand
+        Sub register menu, accept the register input and check if it satisfy the rules
         :rtype: object
         """
         print("--- Registration  ---")
         username = self.input_validate("Input your username: ")
         if self.user_db_util.check_is_exist(username):
+            self.clear()
+            print("username {} is already used by others, try another one".format(username))
             # go back to register process
             self.register()
         else:
@@ -206,17 +208,16 @@ class Menu:
                 print("Logging in as {}".format(username))
                 Socket_Utils.send_json(socket_connection, self.user_db_util.get_user_detail(username))
 
-                print("Waiting for Master Pi...")
-                while True:
-                    try:
+                print("Waiting for message from Master Pi...")
+                try:
+                    while True:
+                        # loop the handle the log out msg from the master pi
                         income_msg = Socket_Utils.recv_json(socket_connection)
-                    except Exception:
-                        print("Communication error with receive ")
-                        break
-                    else:
                         if income_msg and "logout" in income_msg:
                             print("Master Pi logged out")
                             break
+                except Exception as e:
+                    print("Remote server error -> Connection end")
 
 
 if __name__ == "__main__":

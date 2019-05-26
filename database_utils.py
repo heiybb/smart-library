@@ -4,7 +4,7 @@ operation including insert, delete, query
 """
 import MySQLdb
 
-import PWD_Encrypt as fp
+from PWD_Encrypt import encrypt as flower_pass
 
 
 class DatabaseUtils:
@@ -72,7 +72,7 @@ class DatabaseUtils:
         :param email: User's email address
         :return: True if insert successfully otherwise False
         """
-        encrypted_pass = fp.encrypt(original_pass)
+        encrypted_pass = flower_pass(original_pass)
         try:
             with self.connection.cursor() as cursor:
                 cursor.execute(
@@ -112,7 +112,7 @@ class DatabaseUtils:
             row = cursor.fetchone()
             self.connection.commit()
         if row:
-            return row[0] == fp.encrypt(pre_ck_password)
+            return row[0] == flower_pass(pre_ck_password)
         return False
 
     def get_all_user(self):
@@ -154,6 +154,8 @@ class DatabaseUtils:
             self.insert_user("heiybb", "heiybb", "Bobin", "Yuan", "root@chr.moe")
             self.insert_user("muggle", "muggle", "Muggle", "Evil", "root@chr.moe")
             self.insert_user("hubert", "hubert", "Hubert", "Law", "hf.heiybb@gmail.com")
+            self.insert_user("xiaoyu", "xiaoyu", "XiaoYu", "Chen", "xiaoyu@rmit.edu.au")
+
             self.insert_user("pied8", "rmit2019", "Emily", "Wilkinson", "terjesa@icloud.com")
             self.insert_user("gay8", "rmit2019", "Asher", "Emerson", "kawasaki@verizon.net")
             self.insert_user("suit8", "rmit2019", "Elaine", "Prentice", "yenya@hotmail.com")
