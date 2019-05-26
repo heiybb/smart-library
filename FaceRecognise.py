@@ -41,7 +41,7 @@ class FaceRecognise:
         time.sleep(2.0)
 
         attempt_count = 0
-        while attempt_count <= 15:
+        while attempt_count <= 10:
             # grab the frame from the threaded video stream
             frame = video_stream.read()
 
@@ -92,7 +92,9 @@ class FaceRecognise:
                 video_stream.stop()
                 return True
             time.sleep(1.0)
+            attempt_count += 1
 
         # do a bit of cleanup
         video_stream.stop()
+        print("Can't find the matched face data")
         return False
