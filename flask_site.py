@@ -25,79 +25,80 @@ group = [
     },
 ]
 
+Title = ''
+Author = ''
+PublishedDate = ''
+ISBN = ''
+data = {}
+headers = {}
 
-# Client webpage.
-@site.route("/", methods=['POST', 'GET', 'PUT', 'DELETE'])
-def index():
+
+def get_book_info(request):
+    global Title
+    global Author
+    global PublishedDate
+    global ISBN
+    global data
+    global headers
+    Title = request.form["Title"]
+    Author = request.form["Author"]
+    PublishedDate = request.form["PublishedDate"]
+    ISBN = request.form["ISBN"]
+    data = {
+        "Title": Title,
+        "Author": Author,
+        "PublishedDate": PublishedDate,
+        "ISBN": ISBN,
+    }
+    headers = {
+        "Content-type": "application/json"
+    }
+
+
+@site.route("/update", methods=['POST'])
+def update():
     userinfo = isLogin()
-
     if userinfo is None:
         return render_template("home.html", userinfo=userinfo)
 
-    if request.method == 'POST':
+    method_put = request.form['put']
+    get_book_info(request)
 
-        method_put = request.form['put']
-        method_delete = request.form['delete']
+    if method_put == "PUT":
+        if len(Title) > 100 or len(Author) > 50:
+            flash('The Title or Author is too long! 1. Modify your input. 2. Contact IT suport.', 'danger')
+            return redirect(url_for('site.index'))
 
-        Title = request.form["Title"]
-        Author = request.form["Author"]
-        PublishedDate = request.form["PublishedDate"]
-        ISBN = request.form["ISBN"]
+        book_id = request.form['Id']
+        requests.put("http://127.0.0.1:5000/book/" + book_id, data=json.dumps(data), headers=headers)
+
+        flash('The book with ISBN(' + ISBN + ') has been updated successfuly', 'success')
+        return redirect(url_for('site.index'))
 
 
-        # update method
-        if method_put == "PUT":
-            if len(Title) > 100 or len(Author) > 50:
-                response = requests.get("http://127.0.0.1:5000/book")
-                data = json.loads(response.text)
-                flash('The Title or Author is too long! 1. Modify your input. 2. Contact IT suport.', 'danger')
-                return render_template("home.html", book=data)
+@site.route("/delete", methods=['POST'])
+def delete():
+    userinfo = isLogin()
+    if userinfo is None:
+        return render_template("home.html", userinfo=userinfo)
 
-            id = request.form['Id']
-            data = {
-                "Title": Title,
-                "Author": Author,
-                "PublishedDate": PublishedDate,
-            }
-            headers = {
-                "Content-type": "application/json"
-            }
-            requests.put("http://127.0.0.1:5000/book/"+id, data=json.dumps(data), headers=headers)
-            response = requests.get("http://127.0.0.1:5000/book")
-            data = json.loads(response.text)
-            flash('The book with ISBN(' + ISBN + ') has been updated successfuly', 'success')
-            return render_template("home.html", book=data, userinfo=userinfo)
+    method_delete = request.form['delete']
+    ISBN = request.form["ISBN"]
 
-        elif method_delete == "DELETE":
-            id = request.form['Id']
-            requests.delete("http://127.0.0.1:5000/book/" + id)
-            response = requests.get("http://127.0.0.1:5000/book")
-            data = json.loads(response.text)
-            flash('The book with ISBN(' + ISBN + ') has been deleted successfuly', 'success')
-            return render_template("home.html", book=data, userinfo=userinfo)
+    if method_delete == 'DELETE':
+        id = request.form['Id']
+        requests.delete("http://127.0.0.1:5000/book/" + id)
 
-        else:
-            if len(Title) > 100 or len(Author) > 50:
-                flash('The Title or Author is too long or empty! 1. Modify your input. 2. Contact IT suport.', 'danger')
-                return render_template("add.html")
+        flash('The book with ISBN(' + ISBN + ') has been deleted successfuly', 'success')
+        return redirect(url_for('site.index'))
 
-            data = {
-                "Title": Title,
-                "Author": Author,
-                "PublishedDate": PublishedDate,
-                "ISBN": ISBN,
-            }
-            headers = {
-                "Content-type": "application/json"
-            }
-            response = requests.post("http://127.0.0.1:5000/book", data = json.dumps(data), headers = headers)
-            data = json.loads(response.text)
-            if len(data) == 1:
-                flash('The Book has exist! Check ISBN, each book has its unique ISBN', 'danger')
-                return render_template("add.html")
-            else:
-                flash('The Book has added success!', 'success')
-                return render_template("add.html")
+
+# Client webpage.
+@site.route("/index", methods=['POST', 'GET'])
+def index():
+    userinfo = isLogin()
+    if userinfo is None:
+        return render_template("home.html", userinfo=userinfo)
 
     if request.method == 'GET':
         response = requests.get("http://127.0.0.1:5000/book")
@@ -111,6 +112,23 @@ def add():
     if userinfo is None:
         flash("You haven't login, please login first, then to add book", 'warning')
         return redirect(url_for('site.login'))
+
+    if request.method == 'POST':
+        get_book_info(request)
+
+        if len(Title) > 100 or len(Author) > 50:
+            flash('The Title or Author is too long or empty! 1. Modify your input. 2. Contact IT suport.', 'danger')
+            return render_template("add.html")
+
+        response = requests.post("http://127.0.0.1:5000/book", data=json.dumps(data), headers=headers)
+        data = json.loads(response.text)
+        if len(data) == 1:
+            flash('The Book has exist! Check ISBN, each book has its unique ISBN', 'danger')
+            return render_template("add.html")
+        else:
+            flash('The Book has added success!', 'success')
+            return render_template("add.html")
+
     return render_template("add.html", userinfo=userinfo)
 
 
