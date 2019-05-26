@@ -59,28 +59,31 @@ class DatabaseUtils:
             email VARCHAR(50) NOT NULL,
             CONSTRAINT PK_User PRIMARY KEY (username));
                     """)
-        self.connection.commit()
+            self.connection.commit()
 
     def insert_user(self, username, original_pass, first_name, last_name, email):
         """Insert a new user into the User table
         Should include username, password, first name, last name and email address
         :rtype: bool
         :param username: User's username
-        :param original_pass: User's password (already encrypted)
+        :param original_pass: User's password
         :param first_name: User's first name
         :param last_name: User's last name
         :param email: User's email address
         :return: True if insert successfully otherwise False
         """
         encrypted_pass = fp.encrypt(original_pass)
-        with self.connection.cursor() as cursor:
-            cursor.execute(
-                "INSERT INTO USER (username, hash_password,first_name,last_name,email) "
-                "VALUES (%s, %s, %s, %s, %s)",
-                (username, encrypted_pass, first_name, last_name, email))
-        self.connection.commit()
-
-        return cursor.rowcount == 1
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO USER (username, hash_password,first_name,last_name,email) "
+                    "VALUES (%s, %s, %s, %s, %s)",
+                    (username, encrypted_pass, first_name, last_name, email))
+                self.connection.commit()
+            return cursor.rowcount == 1
+        except cursor.IntegrityError as e:
+            print("Can't finish insertion{}".format(e))
+            return False
 
     def check_is_exist(self, pre_ck_username):
         """
@@ -91,7 +94,7 @@ class DatabaseUtils:
         with self.connection.cursor() as cursor:
             cursor.execute("SELECT * "
                            "FROM USER WHERE username = %s", (pre_ck_username,))
-        self.connection.commit()
+            self.connection.commit()
         #
         return cursor.rowcount == 1
 
@@ -107,7 +110,7 @@ class DatabaseUtils:
             cursor.execute("SELECT hash_password "
                            "FROM USER WHERE username = %s", (pre_ck_username,))
             row = cursor.fetchone()
-        self.connection.commit()
+            self.connection.commit()
         if row:
             return row[0] == fp.encrypt(pre_ck_password)
         return False
@@ -139,8 +142,8 @@ class DatabaseUtils:
         :param username: refers to the username matched user
         """
         with self.connection.cursor() as cursor:
-            cursor.execute("DELETE FROM USER WHERE username = %s", (username,))
-        self.connection.commit()
+            cursor.execute("DELETE FROM USER WHERE username LIKE %s", (username,))
+            self.connection.commit()
 
     def init_test_users(self):
         """
