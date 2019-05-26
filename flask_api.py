@@ -1,3 +1,6 @@
+"""
+This is book api which according to Restful api conception
+"""
 from flask import Flask, Blueprint, request, jsonify, render_template,url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
@@ -11,8 +14,9 @@ booksSchema = BookSchema(many=True)
 
 
 class Api:
-    # bookSchema = BookSchema()
-    # booksSchema = BookSchema(many=True)
+    """
+    Create Book Api
+    """
 
     # Endpoint to show all books.
     @staticmethod
@@ -33,35 +37,35 @@ class Api:
     # Endpoint to create new book.
     @api.route("/book", methods = ["POST"])
     def addBook():
-        Title = request.json["Title"]
-        Author = request.json["Author"]
-        PublishedDate = request.json["PublishedDate"]
-        ISBN = request.json["ISBN"]
-
+        title = request.json["Title"]
+        author = request.json["Author"]
+        published_date = request.json["PublishedDate"]
+        isbn = request.json["ISBN"]
+        # check if this book has exist
         if len(Book.query.filter(Book.ISBN == ISBN).all()) >= 1:
             temp = {
                 'result':'have exist'
             }
             return jsonify(temp)
 
-        newBook = Book(Title = Title, Author=Author,PublishedDate=PublishedDate,ISBN=ISBN)
-        db.session.add(newBook)
+        new_book = Book(Title = title, Author=author,PublishedDate=published_date,ISBN=isbn)
+        db.session.add(new_book)
         db.session.commit()
-        return bookSchema.jsonify(newBook)
+        return bookSchema.jsonify(new_book)
 
     @staticmethod
     # Endpoint to update book.
     @api.route("/book/<id>", methods = ["PUT"])
     def bookUpdate(id):
         book = Book.query.get(id)
-        Title = request.json["Title"]
-        Author = request.json["Author"]
-        PublishedDate = request.json["PublishedDate"]
+        title = request.json["Title"]
+        author = request.json["Author"]
+        published_date = request.json["PublishedDate"]
 
         #update book
-        book.Title = Title
-        book.Author = Author
-        book.PublishedDate = PublishedDate
+        book.Title = title
+        book.Author = author
+        book.PublishedDate = published_date
         db.session.commit()
         return bookSchema.jsonify(book)
 

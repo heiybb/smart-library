@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    {% if userinfo %}
+    {% if user_info %}
         <div style="margin-bottom: 50px">
-            <h2>Review All Books</h2>
+            <h2>Review and Edit All Books</h2>
         </div>
 
         <div>
@@ -20,7 +20,7 @@
                 {%for item in book%}
                 <tr>
                     <!--update form-->
-                    <form action="/" method="POST">
+                    <form action="/update" method="POST">
                         <td>{{item.BookID}}</td>
                         <td>
                             <input type="text" name="Title" class="form-control" value="{{item.Title}}" required>
@@ -29,7 +29,7 @@
                             <input type="text" name="Author" class="form-control" value="{{item.Author}}" required>
                         </td>
                         <td>
-                            <input type="text" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}" required>
+                            <input type="date" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}" required>
                         </td>
                         <td>
                             {{item.ISBN}}
@@ -44,7 +44,7 @@
                     </form>
 
                     <!--delete form-->
-                    <form action="/" method="POST">
+                    <form action="/delete" method="POST">
                         <td>
                             <input type="hidden" name="ISBN" class="form-control" value="{{item.ISBN}}">
                             <input type="hidden" name="PublishedDate" class="form-control" value="{{item.PublishedDate}}">
