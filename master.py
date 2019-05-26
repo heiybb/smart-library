@@ -25,31 +25,29 @@ class Menu:
         # calling create table from database
         with DatabaseUtils() as db:
             db.create_table()
-        #
-        # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        #     # set up the serve
-        #     s.bind(ADDRESS)
-        #     s.listen()
-        #
-        #     # Make sure that socket can receive in a  fixed IP address
-        #     print("Listening on {}...".format(ADDRESS))
-        #
-        #     # Receive the user name from reception pi
-        #     while True:
-        #         print("Waiting for Reception Pi...")
-        #         conn, addr = s.accept()
-        #         with conn:
-        #             print("Connected to {}".format(addr))
-        #             print()
-        #
-        #             user = socket_utils.recvJson(conn)
-        #             user_name = user['Username']
-        #             name = user['Name']
-        #             print("Hi " + user_name + " Welcome to Smart Library")
-        #             self.menu(user_name, name, lms)
-        #             socket_utils.sendJson(conn, {"logout": True})
 
-        self.menu("Testing",'yyy' ,lms)
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            # set up the serve
+            s.bind(ADDRESS)
+            s.listen()
+
+            # Make sure that socket can receive in a  fixed IP address
+            print("Listening on {}...".format(ADDRESS))
+
+            # Receive the user name from reception pi
+            while True:
+                print("Waiting for Reception Pi...")
+                conn, addr = s.accept()
+                with conn:
+                    print("Connected to {}".format(addr))
+                    print()
+
+                    user = socket_utils.recvJson(conn)
+                    user_name = user['Username']
+                    name = user['Name']
+                    print("Hi " + user_name + " Welcome to Smart Library")
+                    self.menu(user_name, name, lms)
+                    socket_utils.sendJson(conn, {"logout": True})
 
     def search_books(self, user):
         # search book
