@@ -28,3 +28,8 @@ def encrypt(password):
     else:
         code = "K" + code
     return code
+
+
+if __name__ == '__main__':
+    p = input("Enter password\n")
+    print(encrypt(p))
