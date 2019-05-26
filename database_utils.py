@@ -41,6 +41,7 @@ class DatabaseUtils:
         return self
 
     def __exit__(self, type, value, traceback):
+        print(traceback)
         self.close()
 
     def create_user_table(self):
@@ -130,7 +131,7 @@ class DatabaseUtils:
             cursor.execute("SELECT username,first_name,last_name "
                            "FROM USER WHERE username = %s", (username,))
             row = cursor.fetchone()
-        return {"Username": row[0], "FirstName": row[1], "LastName": row[2]}
+        return {"Username": row[0], "Name": row[1] + " " + row[2]}
 
     def del_user(self, username):
         """
@@ -141,7 +142,7 @@ class DatabaseUtils:
             cursor.execute("DELETE FROM USER WHERE username = %s", (username,))
         self.connection.commit()
 
-    def init_insert(self):
+    def init_test_users(self):
         """
         For init the table data
         """
@@ -171,4 +172,4 @@ class DatabaseUtils:
 
 if __name__ == "__main__":
     DB_UTIL = DatabaseUtils()
-    DB_UTIL.init_insert()
+    DB_UTIL.init_test_users()
