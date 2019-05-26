@@ -7,16 +7,7 @@ extensions = ['sphinx.ext.autodoc']
 html_theme = 'sphinx_rtd_theme'
 
 
-sphinx-apidoc -o .\source\ .
-
-
-   face_capture
-   face_encode
-   face_recognise
-   menu
-   pwd_encrypt
-   socket_utils
-   database_utils
+sphinx-apidoc -o ./source/ .
 
 
 google-oauthlib-tool --scope https://www.googleapis.com/auth/assistant-sdk-prototype --save --headless --client-secrets ga_conf/client_secret_384240145112-u26ur407vrfko104se2m5plld74n0nrn.apps.googleusercontent.com.json
