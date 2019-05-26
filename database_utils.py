@@ -4,7 +4,7 @@ operation including insert, delete, query
 """
 import MySQLdb
 
-from PWD_Encrypt import encrypt as flower_pass
+from flower_pass_encrypt import encrypt as flower_pass
 
 
 class DatabaseUtils:

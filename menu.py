@@ -7,12 +7,12 @@ import re
 import socket
 from os import system, name
 
-import Socket_Utils
-from Database_Utils import DatabaseUtils
-from FaceDataCapture import FaceDataCapture
-from FaceDataEncode import FaceDataEncode
-from FaceRecognise import FaceRecognise
-from PWD_Encrypt import encrypt as flower_pass
+import socket_utils
+from database_utils import DatabaseUtils
+from face_data_capture import FaceDataCapture
+from face_data_encode import FaceDataEncode
+from face_recognise import FaceRecognise
+from flower_pass_encrypt import encrypt as flower_pass
 
 with open("config.json", "r") as file:
     CONF = json.load(file)
@@ -206,13 +206,13 @@ class Menu:
             else:
                 print("Connection Established")
                 print("Logging in as {}".format(username))
-                Socket_Utils.send_json(socket_connection, self.user_db_util.get_user_detail(username))
+                socket_utils.send_json(socket_connection, self.user_db_util.get_user_detail(username))
 
                 print("Waiting for message from Master Pi...")
                 try:
                     while True:
                         # loop the handle the log out msg from the master pi
-                        income_msg = Socket_Utils.recv_json(socket_connection)
+                        income_msg = socket_utils.recv_json(socket_connection)
                         if income_msg and "logout" in income_msg:
                             print("Master Pi logged out")
                             break
