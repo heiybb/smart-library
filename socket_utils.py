@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Socket utils
 Include the send json data and receive json data
@@ -30,20 +29,15 @@ def recv_json(socket):
     :param socket: income socket used to receive data
     :return: json
     """
-    try:
-        buffer = socket.recv(4)
-        json_length = struct.unpack("!i", buffer)[0]
-    except Exception:
-        print("Can't handle receive function")
-        return None
-    else:
-        # Reference: https://stackoverflow.com/a/15964489/9798310
-        buffer = bytearray(json_length)
-        view = memoryview(buffer)
-        while json_length:
-            nbytes = socket.recv_into(view, json_length)
-            view = view[nbytes:]
-            json_length -= nbytes
+    buffer = socket.recv(4)
+    json_length = struct.unpack("!i", buffer)[0]
+    # Reference: https://stackoverflow.com/a/15964489/9798310
+    buffer = bytearray(json_length)
+    view = memoryview(buffer)
+    while json_length:
+        nbytes = socket.recv_into(view, json_length)
+        view = view[nbytes:]
+        json_length -= nbytes
 
-        json_string = buffer.decode("utf-8")
-        return json.loads(json_string)
+    json_string = buffer.decode("utf-8")
+    return json.loads(json_string)
