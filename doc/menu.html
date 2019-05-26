@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>menu module &mdash; smart-library-reception 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="socket_utils module" href="socket_utils.html" />
+    <link rel="prev" title="flower_pass_encrypt module" href="flower_pass_encrypt.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> smart-library-reception
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">smart-library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="database_utils.html">database_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_data_capture.html">face_data_capture module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_data_encode.html">face_data_encode module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_recognise.html">face_recognise module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flower_pass_encrypt.html">flower_pass_encrypt module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">menu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket_utils.html">socket_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unittest_database_utils.html">unittest_database_utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">smart-library-reception</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">smart-library</a> &raquo;</li>
+        
+      <li>menu module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/menu.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-menu">
+<span id="menu-module"></span><h1>menu module<a class="headerlink" href="#module-menu" title="Permalink to this headline">¶</a></h1>
+<p>Reception Pi Console Menu</p>
+<dl class="class">
+<dt id="menu.Menu">
+<em class="property">class </em><code class="descclassname">menu.</code><code class="descname">Menu</code><a class="headerlink" href="#menu.Menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Menu Class</p>
+<dl class="staticmethod">
+<dt id="menu.Menu.clear">
+<em class="property">static </em><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the screen output
+Compatible for both WIN and <a href="#id1"><span class="problematic" id="id2">*</span></a>unix</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="menu.Menu.email_validate">
+<em class="property">static </em><code class="descname">email_validate</code><span class="sig-paren">(</span><em>prompt_msg</em><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.email_validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the email address is valid
+:return: True if income address is valid
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.face_login">
+<code class="descname">face_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.face_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use face recognise module to login</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="menu.Menu.input_validate">
+<em class="property">static </em><code class="descname">input_validate</code><span class="sig-paren">(</span><em>prompt_msg</em><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.input_validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the input is valid include the username, password, first name, last name
+Only the letters and numbers and dash and underscore are allowed
+:return True if the income string is valid
+:rtype str</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.login">
+<code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide text login and face login option</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.main">
+<code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide the console menu
+– Login
+– Register
+– Quit</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.password_login">
+<code class="descname">password_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.password_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use traditional username &amp; password to login</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.register">
+<code class="descname">register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sub register menu, accept the register input and check if it satisfy the rules
+:rtype: object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="menu.Menu.send_socket_login">
+<code class="descname">send_socket_login</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#menu.Menu.send_socket_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use socket to send the username and related details to the Master Pi
+:param username: Refers to the user details</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="socket_utils.html" class="btn btn-neutral float-right" title="socket_utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="flower_pass_encrypt.html" class="btn btn-neutral float-left" title="flower_pass_encrypt module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bobin Yuan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+smart-library
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   database_utils
+   face_data_capture
+   face_data_encode
+   face_recognise
+   flower_pass_encrypt
+   menu
+   socket_utils
+   unittest_database_utils

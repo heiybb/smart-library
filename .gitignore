@@ -128,3 +128,4 @@ dmypy.json
 test
 ga_conf
 *.asc
+/command-backup

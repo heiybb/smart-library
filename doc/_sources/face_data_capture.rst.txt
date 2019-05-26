@@ -1,0 +1,7 @@
+face\_data\_capture module
+==========================
+
+.. automodule:: face_data_capture
+    :members:
+    :undoc-members:
+    :show-inheritance:

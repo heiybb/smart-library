@@ -31,5 +31,5 @@ def encrypt(password):
 
 
 if __name__ == '__main__':
-    original = input("Enter password\n")
-    print(encrypt(original))
+    O_PASS = input("Enter password\n")
+    print(encrypt(O_PASS))

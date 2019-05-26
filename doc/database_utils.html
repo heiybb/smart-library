@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database_utils module &mdash; smart-library-reception 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="face_data_capture module" href="face_data_capture.html" />
+    <link rel="prev" title="smart-library" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> smart-library-reception
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">smart-library</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">database_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_data_capture.html">face_data_capture module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_data_encode.html">face_data_encode module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="face_recognise.html">face_recognise module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flower_pass_encrypt.html">flower_pass_encrypt module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html">menu module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="socket_utils.html">socket_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unittest_database_utils.html">unittest_database_utils module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">smart-library-reception</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">smart-library</a> &raquo;</li>
+        
+      <li>database_utils module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/database_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-database_utils">
+<span id="database-utils-module"></span><h1>database_utils module<a class="headerlink" href="#module-database_utils" title="Permalink to this headline">¶</a></h1>
+<p>This script provide the interfaces for the Reception Pi local database
+operation including insert, delete, query</p>
+<dl class="class">
+<dt id="database_utils.DatabaseUtils">
+<em class="property">class </em><code class="descclassname">database_utils.</code><code class="descname">DatabaseUtils</code><span class="sig-paren">(</span><em>connection=None</em><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Local MariaDB database operation utils</p>
+<dl class="attribute">
+<dt id="database_utils.DatabaseUtils.DATABASE">
+<code class="descname">DATABASE</code><em class="property"> = 'Pi'</em><a class="headerlink" href="#database_utils.DatabaseUtils.DATABASE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database_utils.DatabaseUtils.HOST">
+<code class="descname">HOST</code><em class="property"> = '127.0.0.1'</em><a class="headerlink" href="#database_utils.DatabaseUtils.HOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database_utils.DatabaseUtils.PASSWORD">
+<code class="descname">PASSWORD</code><em class="property"> = 'mugglermit'</em><a class="headerlink" href="#database_utils.DatabaseUtils.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database_utils.DatabaseUtils.PORT">
+<code class="descname">PORT</code><em class="property"> = 3306</em><a class="headerlink" href="#database_utils.DatabaseUtils.PORT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database_utils.DatabaseUtils.USER">
+<code class="descname">USER</code><em class="property"> = 'root'</em><a class="headerlink" href="#database_utils.DatabaseUtils.USER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.check_is_exist">
+<code class="descname">check_is_exist</code><span class="sig-paren">(</span><em>pre_ck_username</em><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.check_is_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the username is already exist in the database
+:return True if the username is already used
+:rtype bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.check_password">
+<code class="descname">check_password</code><span class="sig-paren">(</span><em>pre_ck_username</em>, <em>pre_ck_password</em><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.check_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the income username’s password match the database one
+:param pre_ck_username: income username
+:param pre_ck_password: income password inputted by external user
+:return: True if match else False
+:rtype bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the sql connection</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.create_user_table">
+<code class="descname">create_user_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.create_user_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the User table if not exist</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.del_user">
+<code class="descname">del_user</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.del_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the specific user
+:param username: refers to the username matched user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.get_all_user">
+<code class="descname">get_all_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.get_all_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch all the user details
+:return: Str include all the user details</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.get_user_detail">
+<code class="descname">get_user_detail</code><span class="sig-paren">(</span><em>username</em><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.get_user_detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap the specific user details that need to be sent to the Master Pi side
+:param username: the username used to match
+:return: User details in the dict format</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.init_test_users">
+<code class="descname">init_test_users</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.init_test_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>For init the table data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database_utils.DatabaseUtils.insert_user">
+<code class="descname">insert_user</code><span class="sig-paren">(</span><em>username</em>, <em>original_pass</em>, <em>first_name</em>, <em>last_name</em>, <em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#database_utils.DatabaseUtils.insert_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new user into the User table
+Should include username, password, first name, last name and email address
+:rtype: bool
+:param username: User’s username
+:param original_pass: User’s password
+:param first_name: User’s first name
+:param last_name: User’s last name
+:param email: User’s email address
+:return: True if insert successfully otherwise False</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="face_data_capture.html" class="btn btn-neutral float-right" title="face_data_capture module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="smart-library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bobin Yuan
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
