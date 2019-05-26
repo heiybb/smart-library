@@ -88,9 +88,10 @@ class FaceRecognise:
 
             # loop over the recognized faces
             if username in names:
+                # release the camera resource
                 video_stream.stop()
                 return True
-            time.sleep(2.0)
+            time.sleep(1.0)
 
         # do a bit of cleanup
         video_stream.stop()

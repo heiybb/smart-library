@@ -61,4 +61,5 @@ class FaceDataCapture:
                 print("NO.{} image recorded!".format(img_counter))
                 img_counter += 1
 
+        # release the camera resource
         cam.release()
